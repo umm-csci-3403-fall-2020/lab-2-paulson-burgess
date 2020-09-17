@@ -1,26 +1,31 @@
 #include <stdlib.h>
 
 #include "disemvowel.h"
+#include <cstring>
 
 char *disemvowel(char *str) {
-	int len, i, count, r;
+	int len, i, vowels, r, nlength;
 	char *newword;
 
-	count = 0;
+	vowels = 0;
 	len = strlen(str);
 
 	for (i=0; i<len; ++i) {
-	if (str[i] == ("a" | "A" | "e" | "E" | "i" | "I" | "o" | "O" | "u" | "U")){
-	count = count + 1;
+	if (str[i] == 'a' || str[i] == 'A' || str[i] == 'e' || str[i] == 'E' || str[i] == 'i' ||
+			str[i] == 'I' || str[i] == 'o' || str[i] == 'O' || str[i] == 'u' || str[i] == 'U'){
+	vowels = vowels + 1;
 	}}
 
+	nlength = len - vowels;
 	r = 0;
-	newword = (char*) calloc(count+1, sizeof(char));
-	for(i=0; i<count+1; ++i){
-	if (str[i] != ("a" | "A" | "e" | "E" | "i" | "I" | "o" | "O" | "u" | "U")){
+	newword = (char*) calloc(nlength+1, sizeof(char));
+	for(i=0; i<len; ++i){
+	if (str[i] != 'a' && str[i] != 'A' && str[i] != 'e' && str[i] != 'E' && str[i] != 'i' &&
+		str[i] != 'I' && str[i] != 'o' && str[i] != 'O' && str[i] != 'u' && str[i] != 'U'){
 	newword[r] = str[i];
-	++r;
-	}}
+	++r;}
+	}
+	newword[nlength]= '\0';
 	
-  return newword";
+  return newword;
 }
