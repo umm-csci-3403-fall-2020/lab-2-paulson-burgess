@@ -2,32 +2,46 @@
 
 #include "disemvowel.h"
 
+//We actually free the memory returned by disemvoweled in main, so the tests need to be changed to account for that
+//I've altered the tests so that this returned memory is freed here, since they just use disemvowel by itself.
+
 TEST(Disemvowel, HandleEmptyString) {
-  ASSERT_STREQ("", disemvowel((char*) ""));
+  char *disemvoweled = disemvowel((char*) "");
+  ASSERT_STREQ("", disemvoweled);
+  free(disemvoweled);
 }
 
 TEST(Disemvowel, HandleNoVowels) {
-  ASSERT_STREQ("pqrst", disemvowel((char*) "pqrst"));
+  char *disemvoweled = disemvowel((char*) "pqrst");
+  ASSERT_STREQ("pqrst", disemvoweled);
+  free(disemvoweled);
 }
 
 TEST(Disemvowel, HandleOnlyVowels) {
-  ASSERT_STREQ("", disemvowel((char*) "aeiouAEIOUOIEAuoiea"));
+  char *disemvoweled = disemvowel((char*) "aeiouAEIOUOIEAuoiea");
+  ASSERT_STREQ("", disemvoweled);
+  free(disemvoweled);
 }
 
 TEST(Disemvowel, HandleMorrisMinnesota) {
+  char *disemvoweled = disemvowel((char*) "Morris, Minnesota");
   ASSERT_STREQ("Mrrs, Mnnst",
-		      disemvowel((char*) "Morris, Minnesota"));
+		      disemvoweled);
+  free(disemvoweled);
 }
 
 TEST(Disemvowel, HandlePunctuation) {
+  char *disemvoweled = disemvowel((char*) "An (Unexplained) Elephant!");
   ASSERT_STREQ("n (nxplnd) lphnt!", 
-		      disemvowel((char*) "An (Unexplained) Elephant!"));
+		      disemvoweled);
+  free(disemvoweled);
 }
 
 TEST(Disemvowel, HandleLongString) {
   char *str;
   int size;
   int i;
+  char *disemvoweled;
 
   size = 50000;
   str = (char*) calloc(size, sizeof(char));
@@ -39,9 +53,11 @@ TEST(Disemvowel, HandleLongString) {
   }
   str[size-1] = '\0';
   
-  ASSERT_STREQ("xyz", disemvowel(str));
+  disemvoweled = disemvowel(str);
+  ASSERT_STREQ("xyz", disemvoweled);
 
   free(str);
+  free(disemvoweled);
 }
 
 int main(int argc, char *argv[]) {

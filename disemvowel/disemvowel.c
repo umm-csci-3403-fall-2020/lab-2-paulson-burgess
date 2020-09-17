@@ -15,6 +15,7 @@ char *disemvowel(char *str) {
 			str[i] == 'I' || str[i] == 'o' || str[i] == 'O' || str[i] == 'u' || str[i] == 'U'){
 	vowels = vowels + 1;
 	}}
+	// the for loop above this should probably be a helper function
 
 	nlength = len - vowels;
 	r = 0;
@@ -23,7 +24,8 @@ char *disemvowel(char *str) {
 	if (str[i] != 'a' && str[i] != 'A' && str[i] != 'e' && str[i] != 'E' && str[i] != 'i' &&
 		str[i] != 'I' && str[i] != 'o' && str[i] != 'O' && str[i] != 'u' && str[i] != 'U'){
 	newword[r] = str[i];
-	++r;}
+	++r;
+	}
 	}
 	newword[nlength]= '\0';
 	
